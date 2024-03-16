@@ -1,9 +1,9 @@
 {
   "data": {
-    "1" : { "id": 1, "name": "King Size Bed", "price": "300", "img": "./img/bed.jpg"},
-    "2" : { "id": 2, "name": "Comfy Slippers", "price": "15", "img": "./img/slippers.jpg"},
-    "3" : { "id": 3, "name": "CD Rack", "price": "100", "img": "./img/rack.jpg"},
-    "4" : { "id": 4, "name": "Glow Stick Bundle", "price": "10", "img": "./img/sticks.jpg"},
-    "5" : { "id": 5, "name": "Cookie Jar", "price": "25", "img": "./img/cookies.jpg"}
+    "1" : { "id": 1, "name": "King Size Bed", "price": "300", "img": "1710607760082-bed.jpg"},
+    "2" : { "id": 2, "name": "Comfy Slippers", "price": "15", "img": "1710607780580-cookies.jpg"},
+    "3" : { "id": 3, "name": "CD Rack", "price": "100", "img": "1710607793513-rack.jpg"},
+    "4" : { "id": 4, "name": "Glow Stick Bundle", "price": "10", "img": "1710607801148-slippers.jpg"},
+    "5" : { "id": 5, "name": "Cookie Jar", "price": "25", "img": "1710607807324-sticks.jpg"}
   }
 }

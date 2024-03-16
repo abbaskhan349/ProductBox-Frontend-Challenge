@@ -31,14 +31,26 @@ router.get('/:id', function(req, res, next) {
     res.json(items[req.params.id]);
 });
 
-/* Delete a item by id */
+// /* Delete a item by id */
+// router.delete('/:id', function(req, res) {
+//     var item = items[req.params.id];
+//     delete items[req.params.id];
+//     res.status(204);
+//     log.info('Deleted item', item);
+//     res.json(item);
+// });
+
+/* Delete an item by id */
 router.delete('/:id', function(req, res) {
     var item = items[req.params.id];
+    if (!item) {
+        return res.status(404).json({ error: 'Item not found' });
+    }
     delete items[req.params.id];
-    res.status(204);
     log.info('Deleted item', item);
-    res.json(item);
+    res.status(204).json({ message: 'Item deleted successfully', deletedItem: item }); // Send response with status 204 and a message
 });
+
 
 /* Update a item by id */
 router.put('/:id', function(req, res, next) {
@@ -51,24 +63,6 @@ router.put('/:id', function(req, res, next) {
     res.json(item);
 });
 
-const uploadPic = async (req, res) => {
-	try {
-		// Check if a file was uploaded
-		if (!req.file) {
-			return res
-				.status(400)
-				.json({ success: false, message: 'No image uploaded' });
-		}
-
-		// Get the file name
-		const imgName = path.basename(req.file.path);
-
-		res.status(200).json({ success: true, imagePath: imgName });
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ success: false, message: 'Internal server error' });
-	}
-};
 
 // Define storage for uploaded files
 const storage = multer.diskStorage({

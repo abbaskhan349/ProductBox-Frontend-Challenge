@@ -14,8 +14,8 @@ var path = require('path')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'static')));
+// app.use(cookieParser());
+// app.use(express.static(path.join(__dirname, 'static')));
 app.use(cors())
 app.use('/images', express.static(path.join(__dirname, 'upload/images')));
 app.use('/items', items);

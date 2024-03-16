@@ -3,10 +3,10 @@ var router = express.Router();
 var _ = require('lodash');
 var logger = require('../lib/logger');
 var log = logger();
-
+var multer = require('multer');
 var items = require('../init_data.json').data;
 var curId = _.size(items);
-
+var path = require('path')
 /* GET items listing. */
 router.get('/', function(req, res) {
     res.json(_.toArray(items));
@@ -51,5 +51,60 @@ router.put('/:id', function(req, res, next) {
     res.json(item);
 });
 
+const uploadPic = async (req, res) => {
+	try {
+		// Check if a file was uploaded
+		if (!req.file) {
+			return res
+				.status(400)
+				.json({ success: false, message: 'No image uploaded' });
+		}
+
+		// Get the file name
+		const imgName = path.basename(req.file.path);
+
+		res.status(200).json({ success: true, imagePath: imgName });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ success: false, message: 'Internal server error' });
+	}
+};
+
+// Define storage for uploaded files
+const storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, 'upload/images'); // Directory where uploaded files will be stored
+	},
+	filename: function (req, file, cb) {
+		cb(null, Date.now() + '-' + file.originalname); // Filename to save with timestamp
+	},
+});
+
+// Initialize multer upload middleware
+const upload = multer({
+	storage: storage,
+	limits: {
+		fileSize: 10 * 1024 * 1024, // 10MB in bytes
+	},
+});
+
+router.post('/uploadpic', upload.single('image'), async (req, res) => {
+	try {
+		// Check if a file was uploaded
+		if (!req.file) {
+			return res
+				.status(400)
+				.json({ success: false, message: 'No image uploaded' });
+		}
+
+		// Get the file name
+		const imgName = path.basename(req.file.path);
+
+		res.status(200).json({ success: true, imagePath: imgName });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ success: false, message: 'Internal server error' });
+	}
+});
 
 module.exports = router;
